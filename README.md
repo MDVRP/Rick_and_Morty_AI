@@ -12,9 +12,9 @@ An interactive app that:
 
 > Replace these placeholders with your recordings so others can preview the app quickly.
 
-![Demo (GIF)](docs/demo.gif)
+![Demo (GIF)](video&gif/gif.dmg)
 
-[Full Video Walkthrough](https://your-demo-video-link.example)
+[Full Video Walkthrough](video&gif/demo.webm)
 
 
 ## Tech Stack & Rationale
