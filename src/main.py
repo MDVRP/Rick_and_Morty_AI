@@ -2,6 +2,7 @@ from src.data_store.read_api import LocationsReader
 from src.data_store.store import Store
 from src.llm.llm import LLMClient
 from src.search.search import SearchService
+from src.llm.eval import evaluate_answer
 from contextlib import closing
 import streamlit as st
 import sqlite3
@@ -20,7 +21,7 @@ def ensure_ingested_once() -> Store:
 
 def main() -> None:
     st.title("Rick & Morty AI")
-    st.caption("Ingests data on first run, then lets you query using LLM-generated SQL.")
+    st.caption("Ingests data on first run, then lets you query with LLM.")
 
     store = ensure_ingested_once()
     client = LLMClient()
@@ -28,7 +29,7 @@ def main() -> None:
     query = st.text_area("Ask something or provide an instruction", height=120)
     if st.button("Ask"):
         if not query.strip():
-            st.warning("Ask about a charachter or a location , or add a new note about a charachter. It is suggested to provide the exact name .")
+            st.warning("Ask about a charachter , a location , or add a new note about a charachter.(Provide the exact name for better results)")
             return
         try:
             sql = client.generate_sql_from_schema(query)
@@ -36,8 +37,7 @@ def main() -> None:
                 cur = conn.execute(sql)
                 rows = cur.fetchall()
                 columns = [d[0] for d in cur.description] if cur.description else []
-            print("rows : ",rows)
-            print("--------------------------------")
+            
             # Extract image URLs (start with https and end at first .jpeg) from the result set
             img_pattern = re.compile(r"https://.*?\.jpeg", re.IGNORECASE)
             found_imgs = []
@@ -78,6 +78,25 @@ def main() -> None:
                 pass
             st.subheader("Answer")
             st.write(answer)
+            # -----------------------
+            # Simple Evaluation (UI only) via src.llm.eval
+            # -----------------------
+            metrics, context_text = evaluate_answer(
+                client=client,
+                question=query,
+                answer=answer,
+                columns=columns,
+                rows=rows,
+                notes=similar_notes,
+            )
+            # Show in UI
+            st.subheader("Evaluation")
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Coverage", f"{metrics['coverage']:.2f}")
+            c2.metric("Relevance", f"{metrics['relevance']:.2f}")
+            c3.metric("Completeness", f"{metrics['completeness']:.2f}")
+            with st.expander("Context used for evaluation"):
+                st.text(context_text[:5000])
         except sqlite3.Error as e:
             st.error(f"Database error: {e}")
 

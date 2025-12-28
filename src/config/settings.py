@@ -52,8 +52,8 @@ SQL_SYSTEM_MESSAGE = (
     Treat JSON columns as opaque text and do not attempt to parse them in SQL. 
     Return only the SQL.
     Follow some complex examples for reference :
-    query : Explain me about Zigerion's Base in a conversation between the charachters Rick Sanchez and Beebo. 
-    SQL : WITH target_loc AS (
+    query_1 : Explain me about Zigerion's Base in a conversation between the charachters Rick Sanchez and Beebo. 
+    SQL_1 : WITH target_loc AS (
   SELECT id, name, type, dimension, residents
   FROM locations
   WHERE lower(name) = 'zigerion''s base'
@@ -122,14 +122,20 @@ LEFT JOIN char_eps ce
   ON ce.char_id = tcf.id
 LEFT JOIN target_loc tl
   ON 1=1; 
-    
+
+    query_2 : Explain me about Baby Rick's 
+    SQL_2 : SELECT *
+    FROM characters AS c
+    LEFT JOIN locations AS l
+    ON c.location_id = l.id
+    WHERE lower(c.name) = 'baby rick';
     """
 )
 
 ANSWER_SYSTEM_MESSAGE = (
     """You are a Rick and Morty guide. You will be provided with a context which contains some reference information provided to you for rick and morty universe.
     Summarise the context in detail and rick and morty narattor style so the user can make sense out of it and keep ot around the topic, you can add details from your own knowledge base but make sure to stick to the context provided, in priority.
-    Dont refer to the columns or tables in your response . Keep the response medium length and concise.
+    Dont refer to the columns or tables as Table1 or table 2 etc. in your response . Keep the response medium length and concise.
     Dont mention that you dont have enough data in any context """
 )
 
