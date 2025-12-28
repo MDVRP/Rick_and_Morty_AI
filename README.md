@@ -12,7 +12,7 @@ An interactive app that:
 
 > Replace these placeholders with your recordings so others can preview the app quickly.
 
-![Demo (GIF)](video&gif/gif.dmg)
+![Demo (GIF)](video&gif/demo.gif)
 
 [Full Video Walkthrough](video&gif/demo.webm)
 
