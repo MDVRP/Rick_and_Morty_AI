@@ -1,0 +1,54 @@
+# ---- Python: bytecode / cache ----
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.hypothesis/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+pip-wheel-metadata/
+
+# ---- Build / dist ----
+build/
+dist/
+*.egg
+*.egg-info/
+*.whl
+*.spec
+
+# ---- Editors / OS artifacts ----
+.DS_Store
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+
+# ---- Environment / secrets ----
+.env
+.env.*
+.python-version
+.streamlit/secrets.toml
+
+# ---- Local data / generated artifacts ----
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Keep schema JSONs versioned (used for LLM SQL generation)
+# (If you want to ignore generated schema, uncomment next line)
+# schema/*.json
+
+

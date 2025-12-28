@@ -54,18 +54,18 @@ SQL_SYSTEM_MESSAGE = (
     Treat JSON columns as opaque text and do not attempt to parse them in SQL. 
     Return only the SQL.
     Follow some complex examples for reference :
-    query_1 : Explain me about Zigerion's Base in a conversation between the charachters Rick Sanchez and Beebo. 
+    query_1 : Explain me about location1 in a conversation between the charachters Rick and Tony. 
     SQL_1 : WITH target_loc AS (
   SELECT id, name, type, dimension, residents
   FROM locations
-  WHERE lower(name) = 'zigerion''s base'
+  WHERE lower(name) = 'location1'
   LIMIT 1
 ),
 -- the two speakers we care about (exists even if not residents of the location)
 two_chars AS (
   SELECT c.id, c.name, c.status, c.species, c.type, c.gender, c.image, c.episodes
   FROM characters c
-  WHERE lower(c.name) IN ('rick sanchez','beebo')
+  WHERE lower(c.name) IN ('rick','tony')
 ),
 -- explode location residents to match by character id (requires SQLite JSON1)
 loc_residents AS (
@@ -125,12 +125,12 @@ LEFT JOIN char_eps ce
 LEFT JOIN target_loc tl
   ON 1=1; 
 
-    query_2 : Explain me about Baby Rick's 
+    query_2 : Explain me about Mozaics's 
     SQL_2 : SELECT *
     FROM characters AS c
     LEFT JOIN locations AS l
     ON c.location_id = l.id
-    WHERE lower(c.name) = 'baby rick';
+    WHERE lower(c.name) = 'mozaics';
     """
 )
 
