@@ -1,0 +1,143 @@
+{
+  "episodes": [
+    {
+      "name": "id",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "code",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    }
+  ],
+  "characters": [
+    {
+      "name": "id",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "status",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "species",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "type",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "gender",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "image",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "episodes",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "location_id",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    }
+  ],
+  "locations": [
+    {
+      "name": "id",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "type",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "dimension",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "residents",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    }
+  ],
+  "notes": [
+    {
+      "name": "notes",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    },
+    {
+      "name": "embedding",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "primary_key": false
+    }
+  ]
+}
