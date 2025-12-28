@@ -1,3 +1,5 @@
+import os
+
 GRAPHQL_URL = "https://rickandmortyapi.com/graphql"
 
 REQUEST_HEADERS = {
@@ -52,18 +54,18 @@ SQL_SYSTEM_MESSAGE = (
     Treat JSON columns as opaque text and do not attempt to parse them in SQL. 
     Return only the SQL.
     Follow some complex examples for reference :
-    query : Explain me about Zigerion's Base in a conversation between the charachters Rick Sanchez and Beebo. 
-    SQL : WITH target_loc AS (
+    query_1 : Explain me about location1 in a conversation between the charachters Rick and Tony. 
+    SQL_1 : WITH target_loc AS (
   SELECT id, name, type, dimension, residents
   FROM locations
-  WHERE lower(name) = 'zigerion''s base'
+  WHERE lower(name) = 'location1'
   LIMIT 1
 ),
 -- the two speakers we care about (exists even if not residents of the location)
 two_chars AS (
   SELECT c.id, c.name, c.status, c.species, c.type, c.gender, c.image, c.episodes
   FROM characters c
-  WHERE lower(c.name) IN ('rick sanchez','beebo')
+  WHERE lower(c.name) IN ('rick','tony')
 ),
 -- explode location residents to match by character id (requires SQLite JSON1)
 loc_residents AS (
@@ -122,14 +124,39 @@ LEFT JOIN char_eps ce
   ON ce.char_id = tcf.id
 LEFT JOIN target_loc tl
   ON 1=1; 
-    
+
+    query_2 : Explain me about Mozaics's 
+    SQL_2 : SELECT *
+    FROM characters AS c
+    LEFT JOIN locations AS l
+    ON c.location_id = l.id
+    WHERE lower(c.name) = 'mozaics';
     """
 )
 
 ANSWER_SYSTEM_MESSAGE = (
     """You are a Rick and Morty guide. You will be provided with a context which contains some reference information provided to you for rick and morty universe.
     Summarise the context in detail and rick and morty narattor style so the user can make sense out of it and keep ot around the topic, you can add details from your own knowledge base but make sure to stick to the context provided, in priority.
-    Dont refer to the columns or tables in your response . Keep the response medium length and concise.
+    Dont refer to the columns or tables as Table1 or table 2 etc. in your response . Keep the response medium length and concise.
     Dont mention that you dont have enough data in any context """
 )
+
+#
+# Optional environment overrides (useful for Docker/.env)
+#
+GRAPHQL_URL = os.getenv("GRAPHQL_URL", GRAPHQL_URL)
+DB_PATH = os.getenv("DB_PATH", DB_PATH)
+QUERY_FILE_PATH = os.getenv("QUERY_FILE_PATH", QUERY_FILE_PATH)
+SCHEMA_JSON_PATH = os.getenv("SCHEMA_JSON_PATH", SCHEMA_JSON_PATH)
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", OLLAMA_BASE_URL)
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", OLLAMA_MODEL)
+try:
+    OLLAMA_NUM_PREDICT = int(os.getenv("OLLAMA_NUM_PREDICT", OLLAMA_NUM_PREDICT))
+except Exception:
+    pass
+try:
+    OLLAMA_TEMPERATURE = float(os.getenv("OLLAMA_TEMPERATURE", OLLAMA_TEMPERATURE))
+except Exception:
+    pass
+OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", OLLAMA_EMBED_MODEL)
 

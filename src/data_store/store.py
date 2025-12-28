@@ -241,14 +241,11 @@ class Store:
         """
         locations = reader.fetch_all_locations()
         self.ingest_locations(locations)
-        # After ingestion, print total counts of locations and characters stored
         with closing(self._connect()) as conn:
             cur = conn.execute(f"SELECT COUNT(*) FROM {TABLE_LOCATIONS}")
             total_locations = cur.fetchone()[0] if cur else 0
             cur = conn.execute(f"SELECT COUNT(*) FROM {TABLE_CHARACTERS}")
             total_characters = cur.fetchone()[0] if cur else 0
-        print(f"Total locations ingested: {total_locations}")
-        print(f"Total characters ingested: {total_characters}")
 
     # Schema utilities
     def get_table_schema(self, table: str) -> List[Dict[str, Any]]:
