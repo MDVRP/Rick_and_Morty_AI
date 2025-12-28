@@ -1,3 +1,10 @@
 requests
 environs
 streamlit>=1.31.0
+ollama>=0.3.0
+langchain
+langgraph
+langchain-community>=0.2.11
+numpy>=1.26.4
+tqdm>=4.66.4
+python-dotenv>=1.0.1

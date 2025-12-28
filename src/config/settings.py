@@ -1,3 +1,5 @@
+import os
+
 GRAPHQL_URL = "https://rickandmortyapi.com/graphql"
 
 REQUEST_HEADERS = {
@@ -138,4 +140,23 @@ ANSWER_SYSTEM_MESSAGE = (
     Dont refer to the columns or tables as Table1 or table 2 etc. in your response . Keep the response medium length and concise.
     Dont mention that you dont have enough data in any context """
 )
+
+#
+# Optional environment overrides (useful for Docker/.env)
+#
+GRAPHQL_URL = os.getenv("GRAPHQL_URL", GRAPHQL_URL)
+DB_PATH = os.getenv("DB_PATH", DB_PATH)
+QUERY_FILE_PATH = os.getenv("QUERY_FILE_PATH", QUERY_FILE_PATH)
+SCHEMA_JSON_PATH = os.getenv("SCHEMA_JSON_PATH", SCHEMA_JSON_PATH)
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", OLLAMA_BASE_URL)
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", OLLAMA_MODEL)
+try:
+    OLLAMA_NUM_PREDICT = int(os.getenv("OLLAMA_NUM_PREDICT", OLLAMA_NUM_PREDICT))
+except Exception:
+    pass
+try:
+    OLLAMA_TEMPERATURE = float(os.getenv("OLLAMA_TEMPERATURE", OLLAMA_TEMPERATURE))
+except Exception:
+    pass
+OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", OLLAMA_EMBED_MODEL)
 
